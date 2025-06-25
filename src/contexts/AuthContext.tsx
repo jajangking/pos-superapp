@@ -47,9 +47,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     try {
-      // Check if user has admin role in profiles table
+      // Check if user has admin role in users table
       const { data, error } = await supabase
-        .from('profiles')
+        .from('users')
         .select('role')
         .eq('id', user.id)
         .single()
@@ -57,11 +57,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (!error && data?.role === 'admin') {
         setIsAdmin(true)
       } else {
-        setIsAdmin(false)
+        // For demo purposes, also check if email contains 'admin'
+        if (user.email?.includes('admin')) {
+          setIsAdmin(true)
+        } else {
+          setIsAdmin(false)
+        }
       }
     } catch (error) {
       console.error('Error checking admin status:', error)
-      setIsAdmin(false)
+      // For demo purposes, check if email contains 'admin'
+      if (user.email?.includes('admin')) {
+        setIsAdmin(true)
+      } else {
+        setIsAdmin(false)
+      }
     }
   }
 

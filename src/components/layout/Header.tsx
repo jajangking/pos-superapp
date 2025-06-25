@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, User, Menu, Search } from 'lucide-react'
+import { ShoppingCart, User, Menu, Search, Shield } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useCart } from '@/contexts/CartContext'
 import { useAuth } from '@/contexts/AuthContext'
@@ -92,6 +92,12 @@ export function Header() {
             </DropdownMenu>
           ) : (
             <div className="flex items-center space-x-2">
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/admin-setup" className="text-xs">
+                  <Shield className="mr-1 h-3 w-3" />
+                  Admin
+                </Link>
+              </Button>
               <Button variant="ghost" asChild>
                 <Link href="/auth/signin">Sign In</Link>
               </Button>
